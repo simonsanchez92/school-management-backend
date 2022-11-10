@@ -10,6 +10,8 @@
 
 ### Install required dependencies
 
+#### sequelize guide: https://echobind.com/post/a-guide-for-restful-apis-with-node-sequelize-postgres
+
 #### cors, config, path, express, express-validator, bcrypt, dotenv, pg, pghstore, sequelize jsonwebtoken
 
 ## Dev dependencies
@@ -18,4 +20,6 @@
 
 ####
 
-####
+## Creating models/migrations
+
+### sequelize-cli model:generate --name role --attributes description:string
