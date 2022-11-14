@@ -4,8 +4,16 @@ const PORT = process.env.PORT;
 
 const { sequelize } = require("./models/");
 
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.json());
+
+//Importing routes
+require("./routes/users")(app);
+require("./routes/roles")(app);
+
 app.get("/", (req, res) => {
-  res.send("hey man");
+  res.json({ message: "Welcome to the app's entry point" });
 });
 
 const connectDB = async () => {
