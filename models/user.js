@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "role_id",
         onDelete: "CASCADE",
       });
+
+      User.hasOne(models.Admin, {
+        foreignKey: "id",
+      });
+
+      User.hasOne(models.Teacher, {
+        foreignKey: "id",
+      });
+
+      User.hasOne(models.Student, {
+        foreignKey: "id",
+      });
     }
   }
   User.init(
