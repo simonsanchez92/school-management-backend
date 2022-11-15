@@ -1,7 +1,7 @@
-const { send } = require("express/lib/response");
 const db = require("../models");
 const User = db.User;
 const op = db.Sequelize.Op;
+const bcrypt = require("bcrypt");
 
 // @Description - Register user
 // @Route - POST  /api/v1/users/register
@@ -22,6 +22,13 @@ exports.register = async (req, res) => {
     }
 
     user = User.build({ email, password, role_id });
+
+    //Password encryption
+    const salt = await bcrypt.genSalt(10);
+
+    user.password = await bcrypt.hash(password, salt);
+
+    await user.save({ fields: ["email", "password", "role_id"] });
 
     res.status(200).json({ success: true, user });
   } catch (err) {
@@ -49,24 +56,55 @@ exports.register = async (req, res) => {
 };
 
 // @Description - Retrieve all users
-// @Route - GET  /api/v1/register
+// @Route - GET  /api/v1/users
 // @access - Private
 
 exports.findAll = async (req, res) => {
-  // Tutorial.findAll({ where: condition })
-  //   .then(data => {
-  //     res.send(data);
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send({
-  //       message:
-  //         err.message || "Some error occurred while retrieving tutorials."
-  //     });
-  //   });
-  //   console.log(req);
   try {
     const users = await User.findAll();
     res.status(200).json({ success: true, data: users });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// @Description - Retrieve user by id
+// @Route - GET  /api/v1/users/:id
+// @access - Private
+
+exports.findOne = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { id: req.params.id } });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: `No user found with id ${req.params.id}`,
+      });
+    }
+    res.status(200).json({ success: true, data: user });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// @Description - delete user by id
+// @Route - DELETE  /api/v1/register
+// @access - Private
+
+exports.delete = async (req, res) => {
+  console.log(req.params);
+
+  try {
+    const deleted = await User.destroy({ where: { id: req.params.id } });
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: `User with id ${req.params.id} does not exist`,
+      });
+    }
+    res.status(204).json({ success: true, message: "User deleted" });
   } catch (err) {
     res.status(500).json({ success: false, message: "Server error" });
   }
