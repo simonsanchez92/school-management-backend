@@ -89,7 +89,7 @@ exports.findOne = async (req, res) => {
 };
 
 // @Description - delete user by id
-// @Route - DELETE  /api/v1/register
+// @Route - DELETE  /api/v1/users/:id
 // @access - Private
 
 exports.delete = async (req, res) => {
@@ -104,7 +104,7 @@ exports.delete = async (req, res) => {
         message: `User with id ${req.params.id} does not exist`,
       });
     }
-    res.status(204).json({ success: true, message: "User deleted" });
+    res.status(200).json({ success: true, message: "User deleted" });
   } catch (err) {
     res.status(500).json({ success: false, message: "Server error" });
   }

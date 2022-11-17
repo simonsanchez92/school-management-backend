@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Role",
-      tableName: "Roles",
+      tableName: "Role",
       underscored: true,
     }
   );
