@@ -10,26 +10,11 @@ exports.create = (req, res) => {
     });
     return;
   }
-
-  // Create a Tutorial
-  //   const tutorial = {
-  //     title: req.body.title,
-  //     description: req.body.description,
-  //     published: req.body.published ? req.body.published : false,
-  //   };
-
-  //   // Save Tutorial in the database
-  //   Tutorial.create(tutorial)
-  //     .then((data) => {
-  //       res.send(data);
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).send({
-  //         message:
-  //           err.message || "Some error occurred while creating the Tutorial.",
-  //       });
-  //     });
 };
+
+// @Description - Retrieve all roles
+// @Route - GET  /api/v1/roles
+// @access - Private
 
 exports.getAll = async (req, res) => {
   try {

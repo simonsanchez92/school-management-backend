@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       join_date: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
       },
       status: {
         type: Sequelize.BOOLEAN,

@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Admin",
       tableName: "Admin",
       underscored: true,
+      timestamps: false,
     }
   );
   return Admin;
