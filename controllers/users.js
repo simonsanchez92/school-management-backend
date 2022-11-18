@@ -4,19 +4,12 @@ const { User, Role, Admin, Teacher, Student } = db;
 const op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 
-const { createUserType, test } = require("../helpers/createUserType");
+const { createUserProfile } = require("../helpers/createUserType");
 // @Description - Register user
 // @Route - POST  /api/v1/users/register
 // @access - Public
 exports.register = async (req, res) => {
   // Validate request
-
-  //enum
-  const roles = {
-    admin: 1,
-    teacher: 2,
-    student: 3,
-  };
 
   const { email, password, role_id } = req.body;
 
@@ -38,26 +31,16 @@ exports.register = async (req, res) => {
     user.password = await bcrypt.hash(password, salt);
 
     await user.save({ fields: ["email", "password", "role_id"] });
+
     const savedUser = await User.findOne({ where: { email: email } });
 
-    // if (role_id == roles.admin) {
-    //   const newAdmin = Admin.build({
-    //     status: true,
-    //     name: null,
-    //     surname: null,
-    //     user_id: savedUser.dataValues.id,
-    //   });
+    //Create Admin/Teacher/Student according to role_id
+    const userProfile = await createUserProfile(
+      savedUser.dataValues.id,
+      role_id
+    );
 
-    //   await newAdmin.save({
-    //     fields: ["status", "name", "surname", "user_id"],
-    //   });
-
-    //   console.log(newAdmin);
-    // }
-
-    const createdUserType = createUserType(savedUser.dataValues.id, role_id);
-    console.log(createdUserType);
-    res.status(200).json({ success: true, user });
+    res.status(200).json({ success: true, data: { user, userProfile } });
   } catch (err) {
     console.log(err);
     res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -90,6 +73,13 @@ exports.register = async (req, res) => {
 exports.findAll = async (req, res) => {
   try {
     const users = await User.findAll();
+    // console.log(users);
+
+    //TO DO
+    const response = users.map((u) => {
+      let userProfile = await;
+    });
+
     res.status(200).json({ success: true, data: users });
   } catch (err) {
     res.status(500).json({ success: false, message: "Server error" });

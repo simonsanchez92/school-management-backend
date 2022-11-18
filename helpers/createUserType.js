@@ -1,31 +1,30 @@
 const db = require("../models");
 const { Admin, Teacher, Student } = db;
 
-exports.test = async () => {
-  console.log("testinnggg");
-};
-exports.createUserType = async (userId, roleId) => {
+exports.createUserProfile = async (userId, roleId) => {
   const roles = {
     admin: 1,
     teacher: 2,
     student: 3,
   };
 
+  let newUser;
+
   if (roleId == roles.admin) {
-    const newAdmin = Admin.build({
+    newUser = Admin.build({
       status: true,
       name: null,
       surname: null,
       user_id: userId,
     });
 
-    await newAdmin.save({
+    await newUser.save({
       fields: ["status", "name", "surname", "user_id"],
     });
   }
 
   if (roleId == roles.teacher) {
-    const newTeacher = Teacher.build({
+    newUser = Teacher.build({
       name: null,
       surname: null,
       status: true,
@@ -37,7 +36,7 @@ exports.createUserType = async (userId, roleId) => {
       join_date: new Date(),
     });
 
-    await newTeacher.save({
+    await newUser.save({
       fields: [
         "name",
         "surname",
@@ -52,7 +51,7 @@ exports.createUserType = async (userId, roleId) => {
     });
   }
   if (roleId == roles.student) {
-    const newStudent = Student.build({
+    newUser = Student.build({
       name: null,
       surname: null,
       status: true,
@@ -64,7 +63,7 @@ exports.createUserType = async (userId, roleId) => {
       join_date: new Date(),
     });
 
-    await newStudent.save({
+    await newUser.save({
       fields: [
         "name",
         "surname",
@@ -78,4 +77,9 @@ exports.createUserType = async (userId, roleId) => {
       ],
     });
   }
+
+  return newUser;
 };
+
+//TO DO
+exports.getUserProfile = async (roleId) => {};
