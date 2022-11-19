@@ -35,38 +35,19 @@ exports.register = async (req, res) => {
 
     await user.save({ fields: ["email", "password", "role_id"] });
 
-    const savedUser = await User.findOne({ where: { email: email } });
+    // const savedUser = await User.findOne({ where: { email: email } });
 
     //Create Admin/Teacher/Student according to role_id
-    const userProfile = await createUserProfile(
-      savedUser.dataValues.id,
-      role_id
-    );
+    // const userProfile = await createUserProfile(
+    //   savedUser.dataValues.id,
+    //   role_id
+    // );
 
-    res.status(200).json({ success: true, data: { user, userProfile } });
+    res.status(200).json({ success: true, data: user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
-
-  // Create a Tutorial
-  //   const tutorial = {
-  //     title: req.body.title,
-  //     description: req.body.description,
-  //     published: req.body.published ? req.body.published : false,
-  //   };
-
-  //   // Save Tutorial in the database
-  //   Tutorial.create(tutorial)
-  //     .then((data) => {
-  //       res.send(data);
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).send({
-  //         message:
-  //           err.message || "Some error occurred while creating the Tutorial.",
-  //       });
-  //     });
 };
 
 // @Description - Retrieve all users

@@ -18,14 +18,12 @@ module.exports = {
         surname: "Sanchez",
         user_id: 1,
         status: true,
-        join_date: new Date(),
       },
       {
         name: "Administrator2",
         surname: "Lopez",
         user_id: 4,
         status: true,
-        join_date: new Date(),
       },
     ]);
   },

@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       id: { type: DataTypes.NUMBER, primaryKey: true },
       name: DataTypes.STRING,
       surname: DataTypes.STRING,
-      join_date: DataTypes.DATE,
       status: DataTypes.BOOLEAN,
       user_id: DataTypes.NUMBER,
     },

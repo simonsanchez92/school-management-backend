@@ -27,9 +27,6 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
-      join_date: {
-        type: Sequelize.DATE,
-      },
       status: {
         type: Sequelize.BOOLEAN,
       },

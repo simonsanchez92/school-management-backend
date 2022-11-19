@@ -13,7 +13,6 @@ module.exports = {
         address: "Calle inventada 1750",
         user_id: 3,
         status: true,
-        join_date: new Date(),
       },
       {
         name: "Lucila",
@@ -24,7 +23,6 @@ module.exports = {
         address: "Calle inventada 123123",
         user_id: 6,
         status: true,
-        join_date: new Date(),
       },
     ]);
   },

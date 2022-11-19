@@ -3,10 +3,48 @@ const { User, Role, Admin, Teacher, Student } = db;
 
 const bcrypt = require("bcrypt");
 
-// @Description - Retrieve all users
-// @Route - GET  /api/v1/users
+// @Description - Create new Teacher
+// @Route - POST  /api/v1/teachers
 // @access - Private
+exports.register = async (req, res) => {
+  const { name, surname, phone, address, gender, status, dob, user_id } =
+    req.body;
 
+  try {
+    let newUser = Teacher.build({
+      name,
+      surname,
+      phone,
+      address,
+      gender,
+      status,
+      dob,
+      user_id,
+    });
+
+    await newUser.save({
+      fields: [
+        "name",
+        "surname",
+        "phone",
+        "address",
+        "gender",
+        "status",
+        "dob",
+        "user_id",
+      ],
+    });
+
+    res.status(201).json({ succes: true, data: newUser });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ succes: false, message: "Internal server error" });
+  }
+};
+
+// @Description - Retrieve all teachers
+// @Route - GET  /api/v1/teachers
+// @access - Private
 exports.findAll = async (req, res) => {
   try {
     const teachers = await Teacher.findAll();

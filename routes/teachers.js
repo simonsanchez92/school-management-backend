@@ -3,7 +3,8 @@ module.exports = (app) => {
 
   const router = require("express").Router();
 
-  // Create a new user
+  // Create a new teacher
+  router.post("/", teachers.register);
 
   // Retrieve all teachers
   router.get("/", teachers.findAll);
