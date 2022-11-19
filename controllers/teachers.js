@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
     req.body;
 
   try {
-    let newUser = Teacher.build({
+    let newTeacher = Teacher.build({
       name,
       surname,
       phone,
@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
       user_id,
     });
 
-    await newUser.save({
+    await newTeacher.save({
       fields: [
         "name",
         "surname",
@@ -35,7 +35,7 @@ exports.register = async (req, res) => {
       ],
     });
 
-    res.status(201).json({ succes: true, data: newUser });
+    res.status(201).json({ succes: true, data: newTeacher });
   } catch (err) {
     console.log(err);
     res.status(500).json({ succes: false, message: "Internal server error" });

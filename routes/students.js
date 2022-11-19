@@ -4,6 +4,9 @@ module.exports = (app) => {
   const router = require("express").Router();
 
   // Retrieve all students
+  router.post("/", students.register);
+
+  // Retrieve all students
   router.get("/", students.findAll);
 
   // Retrieve a student user with id

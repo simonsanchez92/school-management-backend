@@ -1,12 +1,48 @@
 const db = require("../models");
-const { User, Role, Admin, Teacher, Student } = db;
+const { User, Student } = db;
 
-const bcrypt = require("bcrypt");
+// @Description - Create new Teacher
+// @Route - POST  /api/v1/teachers
+// @access - Private
+exports.register = async (req, res) => {
+  const { name, surname, phone, address, gender, status, dob, user_id } =
+    req.body;
+
+  try {
+    let newStudent = Student.build({
+      name,
+      surname,
+      phone,
+      address,
+      gender,
+      status,
+      dob,
+      user_id,
+    });
+
+    await newStudent.save({
+      fields: [
+        "name",
+        "surname",
+        "phone",
+        "address",
+        "gender",
+        "status",
+        "dob",
+        "user_id",
+      ],
+    });
+
+    res.status(201).json({ succes: true, data: newStudent });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ succes: false, message: "Internal server error" });
+  }
+};
 
 // @Description - Retrieve all users
 // @Route - GET  /api/v1/users
 // @access - Private
-
 exports.findAll = async (req, res) => {
   try {
     const student = await Student.findAll();
@@ -64,5 +100,27 @@ exports.delete = async (req, res) => {
 // @access - Private
 exports.update = async (req, res) => {
   console.log(req.body);
-  res.json(req.body);
+  const { name, surname, phone, address, gender, status, dob, user_id } =
+    req.body;
+
+  try {
+    await Student.update(
+      { name, surname, phone, address, gender, status, dob },
+      {
+        where: {
+          user_id: user_id,
+        },
+      }
+    );
+
+    const updatedStudent = await Student.findOne({
+      where: { user_id: user_id },
+    });
+
+    res.status(200).json({ success: true, data: updatedStudent });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, message: "Student could not be updated" });
+  }
 };
