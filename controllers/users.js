@@ -4,7 +4,10 @@ const { User, Role, Admin, Teacher, Student } = db;
 const op = db.Sequelize.Op;
 const bcrypt = require("bcrypt");
 
-const { createUserProfile } = require("../helpers/createUserType");
+const {
+  createUserProfile,
+  getUserProfile,
+} = require("../helpers/createUserType");
 // @Description - Register user
 // @Route - POST  /api/v1/users/register
 // @access - Public
@@ -76,8 +79,10 @@ exports.findAll = async (req, res) => {
     // console.log(users);
 
     //TO DO
-    const response = users.map((u) => {
-      let userProfile = await;
+    const response = users.map(async (u) => {
+      let user = u.dataValues;
+      let profile = await getUserProfile(user.id, user.role_id);
+      console.log({ currentUser: u, profile });
     });
 
     res.status(200).json({ success: true, data: users });

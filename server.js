@@ -11,6 +11,8 @@ app.use(express.json());
 //Importing routes
 require("./routes/users")(app);
 require("./routes/roles")(app);
+require("./routes/teachers")(app);
+require("./routes/students")(app);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the app's entry point" });

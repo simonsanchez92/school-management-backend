@@ -1,13 +1,13 @@
 const db = require("../models");
 const { Admin, Teacher, Student } = db;
 
-exports.createUserProfile = async (userId, roleId) => {
-  const roles = {
-    admin: 1,
-    teacher: 2,
-    student: 3,
-  };
+const roles = {
+  admin: 1,
+  teacher: 2,
+  student: 3,
+};
 
+exports.createUserProfile = async (userId, roleId) => {
   let newUser;
 
   if (roleId == roles.admin) {
@@ -82,4 +82,19 @@ exports.createUserProfile = async (userId, roleId) => {
 };
 
 //TO DO
-exports.getUserProfile = async (roleId) => {};
+exports.getUserProfile = async (userId, roleId) => {
+  let userProfile;
+
+  if (roleId == roles.admin) {
+    userProfile = await Admin.findOne({ where: { user_id: userId } });
+  }
+
+  if (roleId == roles.teacher) {
+    userProfile = await Teacher.findOne({ where: { user_id: userId } });
+  }
+  if (roleId == roles.student) {
+    userProfile = await Student.findOne({ where: { user_id: userId } });
+  }
+
+  return userProfile.dataValues;
+};
