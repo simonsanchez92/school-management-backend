@@ -10,14 +10,6 @@ const bcrypt = require("bcrypt");
 exports.findAll = async (req, res) => {
   try {
     const student = await Student.findAll();
-    // console.log(users);
-
-    //TO DO
-    // const response = users.map(async (u) => {
-    //   let user = u.dataValues;
-    //   let profile = await getUserProfile(user.id, user.role_id);
-    //   console.log({ currentUser: u, profile });
-    // });
 
     res.status(200).json({ success: true, data: student });
   } catch (err) {
@@ -31,15 +23,15 @@ exports.findAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { id: req.params.id } });
+    const student = await Student.findOne({ where: { id: req.params.id } });
 
-    if (!user) {
+    if (!student) {
       return res.status(404).json({
         success: false,
-        message: `No user found with id ${req.params.id}`,
+        message: `No student found with id ${req.params.id}`,
       });
     }
-    res.status(200).json({ success: true, data: user });
+    res.status(200).json({ success: true, data: student });
   } catch (err) {
     res.status(500).json({ success: false, message: "Server error" });
   }
@@ -65,4 +57,12 @@ exports.delete = async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: "Server error" });
   }
+};
+
+// @Description - update student profile by id
+// @Route - PUT  /api/v1/students/:id
+// @access - Private
+exports.update = async (req, res) => {
+  console.log(req.body);
+  res.json(req.body);
 };

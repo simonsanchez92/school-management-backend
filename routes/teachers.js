@@ -8,8 +8,8 @@ module.exports = (app) => {
   // Retrieve all teachers
   router.get("/", teachers.findAll);
 
-  //   // // Retrieve a single user with id
-  //   router.get("/:id", teachers.findOne);
+  // Retrieve a single teacher by id
+  router.get("/:id", teachers.findOne);
 
   app.use("/api/v1/teachers", router);
 };

@@ -31,15 +31,15 @@ exports.findAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { id: req.params.id } });
+    const teacher = await Teacher.findOne({ where: { id: req.params.id } });
 
-    if (!user) {
+    if (!teacher) {
       return res.status(404).json({
         success: false,
-        message: `No user found with id ${req.params.id}`,
+        message: `No teacher found with id ${req.params.id}`,
       });
     }
-    res.status(200).json({ success: true, data: user });
+    res.status(200).json({ success: true, data: teacher });
   } catch (err) {
     res.status(500).json({ success: false, message: "Server error" });
   }

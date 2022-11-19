@@ -3,13 +3,14 @@ module.exports = (app) => {
 
   const router = require("express").Router();
 
-  // Create a new user
-
-  // Retrieve all teachers
+  // Retrieve all students
   router.get("/", students.findAll);
 
-  //   // // Retrieve a single user with id
-  //   router.get("/:id", teachers.findOne);
+  // Retrieve a student user with id
+  router.get("/:id", students.findOne);
+
+  // Update student profile
+  router.put("/:id", students.update);
 
   app.use("/api/v1/students", router);
 };
