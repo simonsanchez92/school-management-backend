@@ -13,6 +13,7 @@ require("./routes/users")(app);
 require("./routes/roles")(app);
 require("./routes/teachers")(app);
 require("./routes/students")(app);
+require("./routes/admins")(app);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the app's entry point" });
