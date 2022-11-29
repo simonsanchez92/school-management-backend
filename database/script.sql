@@ -81,3 +81,27 @@ INSERT INTO "student"("name", surname, dob, gender, "address", phone, join_date,
 -- SELECT a.name, a.surname, u.email, u.password FROM "admin" as a
 -- INNER JOIN "user" as u
 -- ON a.user_id = u.id;
+
+
+
+CREATE TABLE "classroom" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    "description" varchar(50),
+    "year" INT,
+    division_id SERIAL,
+    FOREIGN KEY (division_id) REFERENCES "division"(id)
+);
+
+CREATE TABLE "division" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    "description" varchar(50)
+);
+
+INSERT INTO "division"("description") VALUES ('A');
+INSERT INTO "division"("description") VALUES ('B');
+
+
+CREATE TABLE "course" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    "description" varchar(50)
+);
