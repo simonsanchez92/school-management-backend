@@ -84,24 +84,41 @@ INSERT INTO "student"("name", surname, dob, gender, "address", phone, join_date,
 
 
 
-CREATE TABLE "classroom" (
+CREATE TABLE "Classroom" (
     id SERIAL PRIMARY KEY NOT NULL,
     "description" varchar(50),
     "year" INT,
     division_id SERIAL,
-    FOREIGN KEY (division_id) REFERENCES "division"(id)
+    FOREIGN KEY (division_id) REFERENCES "Division"(id)
 );
 
-CREATE TABLE "division" (
+CREATE TABLE "Division" (
     id SERIAL PRIMARY KEY NOT NULL,
     "description" varchar(50)
 );
 
-INSERT INTO "division"("description") VALUES ('A');
-INSERT INTO "division"("description") VALUES ('B');
+INSERT INTO "Division"("description") VALUES ('A');
+INSERT INTO "Division"("description") VALUES ('B');
 
+
+INSERT INTO "Classroom"("description", "year", "division_id") VALUES ('1°', 2022, 1);
+
+
+SELECT c.description, c.year, d.description AS "Division" from "Classroom" c
+INNER JOIN "Division" d ON c.division_id = d.id
 
 CREATE TABLE "course" (
     id SERIAL PRIMARY KEY NOT NULL,
     "description" varchar(50)
+);
+
+
+
+INSERT INTO "Classroom"("description", "year", "division_id")
+SELECT "id","description", "year", "division_id"
+FROM "Classroom"
+WHERE NOT EXISTS(
+  SELECT "description", "year", "division_id"
+  FROM "Classroom"
+  WHERE Classroom.customer_id = Classroom.customer_id
 );
