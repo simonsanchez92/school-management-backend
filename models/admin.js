@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Admin.init(
     {
-      id: { type: DataTypes.NUMBER, primaryKey: true },
+      id: { type: DataTypes.INTEGER, primaryKey: true },
       name: DataTypes.STRING,
       surname: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
-      user_id: DataTypes.NUMBER,
+      user_id: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -1,40 +1,39 @@
-SELECT email, r.description FROM "Users" AS u
-INNER JOIN "Roles" AS r
-ON u.role_id = r.id;
+DROP PROCEDURE IF EXISTS insert_data;
+CREATE PROCEDURE insert_data("year" INTEGER, description "Classroom"."description"%TYPE, "division_id" INTEGER)
+LANGUAGE SQL
+BEGIN ATOMIC
+  
+  --SELECT * FROM "Classroom" c WHERE c.division_id = "division_id"; 
+  
+  --CASE WHEN TRUE THEN
 
-SELECT * FROM "Users";
+   --INSERT INTO "Classroom" ( "year", "description", "division_id") VALUES ("year",             "description", "division_id");
+  
+  --END; 
+  
+  DO $$
+BEGIN
+    IF EXISTS(SELECT * FROM "Classroom" c WHERE c.year = 2022) THEN
+        INSERT INTO "Classroom" ( "year", "description", "division_id") VALUES (2023, 'test', 1);
+    ELSE
+    
+    END IF;
 
-INSERT INTO "Admin" (status, "name", surname, user_id) VALUES (TRUE, 'Simon', 'Sanchez', 11)
+END $$;
 
-SELECT a.name, a.surname, u.email FROM "Admin" a
-INNER JOIN "Users" u ON a.user_id = u.id;
-
-
-SELECT t.name, t.surname, t.dob, t.gender,t.address, t.phone, t.status, u.email FROM "Teacher" t
-INNER JOIN "Users" u ON t.user_id =u.id;
+END;
 
 
-CREATE TABLE "Classroom" (
-    id SERIAL PRIMARY KEY NOT NULL,
-    "description" VARCHAR(50),
-    "year" INT,
-    division_id SERIAL,
-    FOREIGN KEY (division_id) REFERENCES "Division"(id)
-);
+DO $$
+BEGIN
+    IF EXISTS(SELECT * FROM "Classroom" c WHERE c.year = 2022) THEN
+        INSERT INTO "Classroom" ( "year", "description", "division_id") VALUES (2023, 'test', 1);
+    ELSE
+    
+    END IF;
 
-CREATE TABLE "Division" (
-    id SERIAL PRIMARY KEY NOT NULL,
-    "description" VARCHAR(50) UNIQUE
-);
-
-INSERT INTO "Division"("description") VALUES ('A');
-INSERT INTO "Division"("description") VALUES ('B');
-
-INSERT INTO "Classroom"("description", "year", "division_id") VALUES ('1°', 2022, 1);
-INSERT INTO "Classroom"("description", "year", "division_id") VALUES ('1°', 2022, 2);
-
-SELECT c.description, c.year, d.description AS "Division" FROM "Classroom" c
-INNER JOIN "Division" d ON c.division_id = d.id
+END $$;
 
 
 
+CALL insert_data(2023, '1°', 1);

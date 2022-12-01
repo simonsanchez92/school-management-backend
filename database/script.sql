@@ -107,11 +107,6 @@ INSERT INTO "Classroom"("description", "year", "division_id") VALUES ('1°', 202
 SELECT c.description, c.year, d.description AS "Division" from "Classroom" c
 INNER JOIN "Division" d ON c.division_id = d.id
 
-CREATE TABLE "course" (
-    id SERIAL PRIMARY KEY NOT NULL,
-    "description" varchar(50)
-);
-
 
 
 INSERT INTO "Classroom"("description", "year", "division_id")
