@@ -1,13 +1,37 @@
 const db = require("../models");
-const { classroom } = db;
+const { Classroom } = db;
 
 // @Description - Register classroom
 // @Route - POST  /api/v1/classrooms
 // @access - Public
 exports.register = async (req, res) => {
-  // Validate request
+  try {
+    const { year, description, division_id } = req.body;
 
-  const { email, password, role_id } = req.body;
+    let classroom = await Classroom.findOne({
+      where: { year: year, description: description, division_id: division_id },
+    });
+
+    //Returns in case classroom is in use for that year and division
+    if (classroom) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Classroom already exists" });
+    }
+
+    //Create new classroom in case it does not exists already
+    classroom = Classroom.build({ year, description, division_id });
+    await classroom.save({ fields: ["year", "description", "division_id"] });
+
+    return res.status(201).json({ success: true, data: classroom });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
+  }
+
+  //   res.json({ messsage: "No classroom found" });
 
   //   try {
   //     let user = await User.findOne({ where: { email: email } });
