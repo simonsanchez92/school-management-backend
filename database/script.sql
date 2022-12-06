@@ -97,6 +97,11 @@ CREATE TABLE "Division" (
     "description" varchar(50)
 );
 
+CREATE TABLE "School_year" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    "description" varchar(50)
+);
+
 INSERT INTO "Division"("description") VALUES ('A');
 INSERT INTO "Division"("description") VALUES ('B');
 

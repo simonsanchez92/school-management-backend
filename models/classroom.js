@@ -9,8 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Classroom.belongsTo(models.School_year, {
+        foreignKey: "school_year_id",
+        onDelete: "CASCADE",
+      });
       Classroom.belongsTo(models.Division, {
         foreignKey: "division_id",
+        onDelete: "CASCADE",
+      });
+      Classroom.belongsTo(models.Shift, {
+        foreignKey: "shift_id",
         onDelete: "CASCADE",
       });
     }
@@ -20,7 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       id: { type: DataTypes.INTEGER, primaryKey: true },
       description: DataTypes.STRING,
       year: DataTypes.INTEGER,
+      school_year_id: DataTypes.INTEGER,
       division_id: DataTypes.INTEGER,
+      shift_id: DataTypes.INTEGER,
     },
     {
       sequelize,

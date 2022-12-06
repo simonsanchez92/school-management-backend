@@ -9,11 +9,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      description: {
-        type: Sequelize.STRING,
-      },
       year: {
         type: Sequelize.INTEGER,
+      },
+      school_year_id: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "School_year",
+          key: "id",
+          as: "school_year_id",
+        },
       },
       division_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +28,15 @@ module.exports = {
           model: "Division",
           key: "id",
           as: "division_id",
+        },
+      },
+      shift_id: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Shift",
+          key: "id",
+          as: "shift_id",
         },
       },
     });
