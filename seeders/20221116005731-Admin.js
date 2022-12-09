@@ -12,20 +12,20 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await queryInterface.bulkInsert("Admin", [
-      {
-        name: "Administrator",
-        surname: "Sanchez",
-        user_id: 1,
-        status: true,
-      },
-      {
-        name: "Administrator2",
-        surname: "Lopez",
-        user_id: 4,
-        status: true,
-      },
-    ]);
+    // await queryInterface.bulkInsert("Admin", [
+    //   {
+    //     name: "Administrator",
+    //     surname: "Sanchez",
+    //     user_id: 1,
+    //     status: true,
+    //   },
+    //   {
+    //     name: "Administrator2",
+    //     surname: "Lopez",
+    //     user_id: 4,
+    //     status: true,
+    //   },
+    // ]);
   },
 
   async down(queryInterface, Sequelize) {

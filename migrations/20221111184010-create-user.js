@@ -16,6 +16,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       last_login: {
+        allowNull: true,
+        defaultValue: new Date(),
         type: Sequelize.DATE,
       },
       role_id: {
@@ -28,11 +30,13 @@ module.exports = {
         },
       },
       created_at: {
-        allowNull: false,
+        allowNull: true,
+        defaultValue: new Date(),
         type: Sequelize.DATE,
       },
       updated_at: {
-        allowNull: false,
+        allowNull: true,
+        defaultValue: new Date(),
         type: Sequelize.DATE,
       },
     });

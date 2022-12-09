@@ -6,10 +6,15 @@ const { Classroom } = db;
 // @access - Public
 exports.register = async (req, res) => {
   try {
-    const { year, description, division_id } = req.body;
+    const { year, school_year_id, division_id, shift_id } = req.body;
 
     let classroom = await Classroom.findOne({
-      where: { year: year, description: description, division_id: division_id },
+      where: {
+        year: year,
+        school_year_id: school_year_id,
+        division_id: division_id,
+        shift_id: shift_id,
+      },
     });
 
     //Returns in case classroom is in use for that year and division
@@ -20,8 +25,15 @@ exports.register = async (req, res) => {
     }
 
     //Create new classroom in case it does not exists already
-    classroom = Classroom.build({ year, description, division_id });
-    await classroom.save({ fields: ["year", "description", "division_id"] });
+    classroom = Classroom.build({
+      year,
+      school_year_id,
+      division_id,
+      shift_id,
+    });
+    await classroom.save({
+      fields: ["year", "school_year_id", "division_id", "shift_id"],
+    });
 
     return res.status(201).json({ success: true, data: classroom });
   } catch (err) {
@@ -30,61 +42,22 @@ exports.register = async (req, res) => {
       .status(500)
       .json({ success: false, message: "Internal server error" });
   }
-
-  //   res.json({ messsage: "No classroom found" });
-
-  //   try {
-  //     let user = await User.findOne({ where: { email: email } });
-
-  //     if (user) {
-  //       return res.status(400).json({
-  //         success: false,
-  //         message: `User '${user.dataValues.email}' already exists`,
-  //       });
-  //     }
-
-  //     user = User.build({ email, password, role_id });
-
-  //     //Password encryption
-  //     const salt = await bcrypt.genSalt(10);
-
-  //     user.password = await bcrypt.hash(password, salt);
-
-  //     await user.save({ fields: ["email", "password", "role_id"] });
-
-  //     // const savedUser = await User.findOne({ where: { email: email } });
-
-  //     //Create Admin/Teacher/Student according to role_id
-  //     // const userProfile = await createUserProfile(
-  //     //   savedUser.dataValues.id,
-  //     //   role_id
-  //     // );
-
-  //     res.status(200).json({ success: true, data: user });
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(500).json({ success: false, message: "Internal Server Error" });
-  //   }
 };
 
-// @Description - Retrieve all users
-// @Route - GET  /api/v1/users
+// @Description - Retrieve all classrooms
+// @Route - GET  /api/v1/classrooms
 // @access - Private
 
 exports.findAll = async (req, res) => {
-  //   try {
-  //     const users = await User.findAll();
-  //     // console.log(users);
-  //     //TO DO
-  //     const response = users.map(async (u) => {
-  //       let user = u.dataValues;
-  //       let profile = await getUserProfile(user.id, user.role_id);
-  //       console.log({ currentUser: u, profile });
-  //     });
-  //     res.status(200).json({ success: true, data: users });
-  //   } catch (err) {
-  //     res.status(500).json({ success: false, message: "Server error" });
-  //   }
+  try {
+    const classrooms = await Classroom.findAll();
+
+    res.status(200).json({ success: true, data: classrooms });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+
+  // res.json({ test: "Testing classroom endpoint" });
 };
 
 // @Description - Retrieve user by id

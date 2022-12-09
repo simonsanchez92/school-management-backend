@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         onDelete: "CASCADE",
       });
+
+      //Many to many relationship
+      Student.belongsToMany(models.Classroom, { through: "ClassroomStudent" });
     }
   }
   Student.init(
