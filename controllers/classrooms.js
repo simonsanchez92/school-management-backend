@@ -105,17 +105,7 @@ exports.delete = async (req, res) => {
 
 exports.enrollStudent = async (req, res) => {
   const { id } = req.params; //classroom ID passed through URL
-  const { student_id } = req.body;
-
-  console.log(req.params.id);
-  // const classroom = await Classroom.findOne({ where: { id: req.params.id } });
-  // const student = await Student.findOne({ where: { id: student_id } });
-
-  // console.log(classroom);
-  // console.log(student);
-
-  // await student.addClassroom(classroom, { through: "Classroom_Student" });
-  console.log({ id, student_id });
+  const { student_id, is_active } = req.body;
 
   try {
     const isEnrolled = await Classroom_Student.findOne({
@@ -129,9 +119,31 @@ exports.enrollStudent = async (req, res) => {
         data: isEnrolled,
       });
     }
+
+    //In case classroom is already full
+    // TO-DO --> parameterize number of students allowed
+    const { count } = await Classroom_Student.findAndCountAll({
+      where: { classroom_id: id },
+    });
+    console.log({ count });
+    if (count >= 30) {
+      return res.status(400).json({
+        success: false,
+        message: "Classroom already full (no more than 30 students allowed)",
+      });
+    }
+
+    //Enroll student successfuly
+    const classroom = await Classroom.findOne({ where: { id: req.params.id } });
+    const student = await Student.findOne({ where: { id: student_id } });
+
+    const enrollment = await classroom.addStudent(student, {
+      through: { is_active: is_active },
+    });
+
+    return res.status(201).json({ success: true, data: enrollment });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
-
-  res.json({ test: "testing endpoint" });
 };

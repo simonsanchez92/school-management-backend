@@ -46,6 +46,9 @@ module.exports = {
           as: "student_id",
         },
       },
+      is_active: {
+        type: Sequelize.BOOLEAN,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
