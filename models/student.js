@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       //Many to many relationship
-      Student.belongsToMany(models.Classroom, { through: "ClassroomStudent" });
+      Student.belongsToMany(models.Classroom, {
+        through: models.Classroom_Student,
+      });
     }
   }
   Student.init(

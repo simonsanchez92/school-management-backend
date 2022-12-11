@@ -13,7 +13,7 @@ module.exports = (app) => {
   router.get("/:id", classrooms.findOne);
 
   // // Delete a classrooms with id
-  router.delete("/:id", classrooms.delete);
+  router.post("/:id/student/enroll", classrooms.enrollStudent);
 
   // // Retrieve all published Tutorials
   // router.get("/published", tutorials.findAllPublished);
