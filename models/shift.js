@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       Shift.hasMany(models.Classroom, {
         foreignKey: "id",
       });
+
+      Shift.hasMany(models.TimeSlot, {
+        foreignKey: "id",
+      });
     }
   }
   Shift.init(

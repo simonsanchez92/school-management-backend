@@ -9,12 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      TimeSlot.belongsTo(models.Shift, {
+        foreignKey: "shift_id",
+        onDelete: "CASCADE",
+      });
     }
   }
   TimeSlot.init(
     {
+      id: { type: DataTypes.INTEGER, primaryKey: true },
       start_time: DataTypes.STRING,
       end_time: DataTypes.STRING,
+      shift_id: DataTypes.INTEGER,
     },
     {
       sequelize,

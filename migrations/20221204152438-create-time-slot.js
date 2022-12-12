@@ -15,6 +15,15 @@ module.exports = {
       end_time: {
         type: Sequelize.STRING,
       },
+      shift_id: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Shift",
+          key: "id",
+          as: "shift_id",
+        },
+      },
     });
   },
   async down(queryInterface, Sequelize) {

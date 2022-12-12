@@ -74,6 +74,68 @@ module.exports = {
         division_id: 2,
         shift_id: 1,
       },
+      //Afternoon
+      {
+        year: 2022,
+        school_year_id: 1,
+        division_id: 1,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 2,
+        division_id: 1,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 3,
+        division_id: 1,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 4,
+        division_id: 1,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 5,
+        division_id: 1,
+        shift_id: 2,
+      },
+
+      {
+        year: 2022,
+        school_year_id: 1,
+        division_id: 2,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 2,
+        division_id: 2,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 3,
+        division_id: 2,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 4,
+        division_id: 2,
+        shift_id: 2,
+      },
+      {
+        year: 2022,
+        school_year_id: 5,
+        division_id: 2,
+        shift_id: 2,
+      },
     ]);
   },
 
