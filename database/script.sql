@@ -122,3 +122,27 @@ WHERE NOT EXISTS(
   FROM "Classroom"
   WHERE Classroom.customer_id = Classroom.customer_id
 );
+
+
+
+CREATE TABLE "Timetable" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    classroom_id SERIAL,
+    day_id SERIAL,
+    time_slot_id SERIAL,
+    subject_id SERIAL,
+    teacher_id SERIAL,
+    FOREIGN KEY (classroom_id) REFERENCES "Classroom"(id),
+    FOREIGN KEY (day_id) REFERENCES "Day"(id),
+    FOREIGN KEY (time_slot_id) REFERENCES "TimeSlot"(id),
+    FOREIGN KEY (subject_id) REFERENCES "Subject"(id),
+    FOREIGN KEY (teacher_id) REFERENCES "Teacher"(id)
+);
+
+
+CREATE TABLE "Subject" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    "description" VARCHAR(60),
+    "school_year_id" SERIAL,
+    FOREIGN KEY ("school_year_id") REFERENCES "School_year"(id)
+);

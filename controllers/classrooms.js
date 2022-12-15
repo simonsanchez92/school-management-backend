@@ -1,5 +1,5 @@
 const db = require("../models");
-const { Classroom, Student, Classroom_Student } = db;
+const { Classroom, Student, Classroom_Student, Day, TimeSlot } = db;
 
 // @Description - Register classroom
 // @Route - POST  /api/v1/classrooms
@@ -31,9 +31,21 @@ exports.register = async (req, res) => {
       division_id,
       shift_id,
     });
+
     await classroom.save({
       fields: ["year", "school_year_id", "division_id", "shift_id"],
     });
+
+    console.log(classroom.dataValues.id);
+
+    // const days = await Day.findAll();
+    // const timeSlots = await TimeSlot.findAll({ where: { shift_id: shift_id } });
+
+    // days.forEach((day) =>
+    //   timeSlots.forEach((slot) =>
+    //     console.log({ day: day.dataValues, slot: slot.dataValues })
+    //   )
+    // );
 
     return res.status(201).json({ success: true, data: classroom });
   } catch (err) {
