@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Day.hasOne(models.Timetable, {
+        foreignKey: "id",
+      });
     }
   }
   Day.init(

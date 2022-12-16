@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         onDelete: "CASCADE",
       });
+
+      Teacher.hasOne(models.Timetable, {
+        foreignKey: "id",
+      });
     }
   }
   Teacher.init(

@@ -1,5 +1,5 @@
 const db = require("../models");
-const { Classroom, Student, Classroom_Student, Day, TimeSlot } = db;
+const { Classroom, Student, Classroom_Student, Day, TimeSlot, Timetable } = db;
 
 // @Description - Register classroom
 // @Route - POST  /api/v1/classrooms
@@ -36,16 +36,32 @@ exports.register = async (req, res) => {
       fields: ["year", "school_year_id", "division_id", "shift_id"],
     });
 
-    console.log(classroom.dataValues.id);
+    // console.log(classroom.dataValues.id);
 
-    // const days = await Day.findAll();
-    // const timeSlots = await TimeSlot.findAll({ where: { shift_id: shift_id } });
+    const days = await Day.findAll();
+    const timeSlots = await TimeSlot.findAll({ where: { shift_id: shift_id } });
 
-    // days.forEach((day) =>
-    //   timeSlots.forEach((slot) =>
-    //     console.log({ day: day.dataValues, slot: slot.dataValues })
-    //   )
-    // );
+    days.forEach((day) =>
+      timeSlots.forEach(async (slot) => {
+        const newTimetable = Timetable.build({
+          classroom_id: classroom.dataValues.id,
+          day_id: day.dataValues.id,
+          time_slot_id: slot.dataValues.id,
+          subject_id: null,
+          teacher_id: null,
+        });
+
+        await newTimetable.save({
+          fields: [
+            "classroom_id",
+            "day_id",
+            "time_slot_id",
+            "subject_id",
+            "teacher_id",
+          ],
+        });
+      })
+    );
 
     return res.status(201).json({ success: true, data: classroom });
   } catch (err) {

@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       Classroom.belongsToMany(models.Student, {
         through: models.Classroom_Student,
       });
+
+      //
+      Classroom.hasOne(models.Timetable, {
+        foreignKey: "id",
+      });
     }
   }
   Classroom.init(

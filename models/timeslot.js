@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "shift_id",
         onDelete: "CASCADE",
       });
+
+      TimeSlot.hasOne(models.Timetable, {
+        foreignKey: "id",
+      });
     }
   }
   TimeSlot.init(
